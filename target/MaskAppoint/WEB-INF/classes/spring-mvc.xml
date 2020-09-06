@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan base-package="com.dgut.controller"/>
+
+<!--    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/front-desk/"/>
+        <property name="suffix" value=".html"/>
+    </bean>-->
+
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/img/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/login*"/>
+            <mvc:exclude-mapping path="/login.html"/>
+            <mvc:exclude-mapping path="/register"/>
+            <bean class="com.dgut.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <mvc:annotation-driven/>
+
+    <!--<mvc:default-servlet-handler/>-->
+
+    <!--映射静态资源，即访问静态资源时若匹配到mapping，则到对应的location中找-->
+    <mvc:resources location="/view/" mapping="index.html"/>
+    <mvc:resources location="/view/" mapping="login.html"/>
+    <mvc:resources location="/view/css/" mapping="/css/**"/>
+    <mvc:resources location="/view/img/" mapping="/img/**"/>
+    <mvc:resources location="/view/js/" mapping="/js/**"/>
+    <mvc:resources location="/view/link/" mapping="/link/**"/>
+
+
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json</value>
+                        <value>application/xml;charset=UTF-8</value>
+                        <value>application/x-www-form-urlencoded;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+</beans>

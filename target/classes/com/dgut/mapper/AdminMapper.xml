@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgut.mapper.AdminMapper">
+    <resultMap id="adminMap" type="com.dgut.domin.Admin">
+        <id column="admin_id" property="adminID" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="admin_name" property="adminName" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="admin_password" property="adminPassword" javaType="STRING" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--select-->
+    <select id="getIDByName" resultType="String" parameterType="String">
+        select admin_id from admin where admin_name=#{adminName}
+    </select>
+
+    <select id="getIDByInfo" resultType="String" parameterType="String">
+        select admin_id from admin where admin_name=#{param1} and admin_password=#{param2}
+    </select>
+
+    <select id="getNameByID" resultType="String" parameterType="String">
+        select admin_name from admin where admin_id=#{adminID}
+    </select>
+
+    <select id="getAdmin" parameterType="String" resultMap="adminMap">
+        select * from admin where admin_id = #{adminID}
+    </select>
+
+    <select id="isCheckUsed" parameterType="String" resultType="String">
+        select check_id from mycheck where check_num = #{check} and is_used = 0
+    </select>
+
+    <!--insert-->
+    <insert id="insertAdminInfo" parameterType="com.dgut.domin.Admin">
+        INSERT INTO admin (admin_id, admin_name, admin_password) VALUES(#{adminID}, #{adminName}, #{adminPassword})
+    </insert>
+
+    <insert id="insertCheck" parameterType="com.dgut.domin.Check">
+        INSERT INTO mycheck (check_id, check_num) VALUES(#{checkID}, #{checkNum})
+    </insert>
+
+    <update id="setCheckInvalid" parameterType="String" >
+        Update mycheck set is_used = 1 where check_id = #{checkID}
+    </update>
+</mapper>

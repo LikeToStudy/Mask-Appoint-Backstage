@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgut.mapper.AppointMapper">
+    <!--创建com.dgut.mapper包时，应输入包名 com/dgut/mapper-->
+
+    <resultMap id="appointLogMap" type="com.dgut.domin.AppointLog">
+        <id column="log_id" property="logID" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userID" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="appoint_time" property="appointTime" javaType="STRING" jdbcType="TIMESTAMP"/>
+        <result column="is_complete" property="isComplete" javaType="INT" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getAppointList" resultMap="appointLogMap">
+        select * from appoint_log
+    </select>
+
+    <update id="updateAppointStatus" parameterType="String">
+        update appoint_log set is_complete = 1 where  is_complete = 0
+        and YEAR(now())=YEAR(appoint_time)
+            and MONTH(now())=MONTH(appoint_time) and (DATE(now())-DATE(appoint_time)) > 2
+    </update>
+
+    <delete id="deleteAppoint">
+        delete from appoint_log where log_id = #{logID}
+    </delete>
+<!--
+
+
+    <insert id="insertAppointInfo" parameterType="com.dgut.domain.AppointLog">
+        INSERT INTO appoint_log VALUES(#{logID}, #{userID}, #{appointTime}, #{isComplete})
+    </insert>
+
+    -->
+</mapper>

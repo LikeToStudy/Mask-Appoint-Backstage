@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用户管理</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../../css/style-user-manage.css">
+
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/bootbox.min.js"></script>
+
+</head>
+<body>
+
+<div class="box">
+    <div class="title">用户管理</div>
+    <div class="content">
+        <!--搜索输入框及查询、重置按钮-->
+        <div class="container content_width">
+            <div class="person_search">
+                <div class="search_input">
+                    <div class="input-group mb-3">
+                        <span>ID：</span>
+                        <input id="Ktext" type="text" class="form-control" placeholder="ID或者用户名">
+                    </div>
+                </div>
+                <div class="search_input">
+                    <button class="btn btn-primary search_btn" type="button" id="search_btn">查询</button>
+                    <button class="btn btn-primary search_btn" type="button" id="back_btn">重置</button>
+                </div>
+            </div>
+            <div class="line"></div>
+        </div>
+        <!--添加按钮及bootstrap的模态框-->
+        <div class="export">
+            <button  style="visibility: hidden" id="new_add" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#renyuan">
+                <img src="../../img/add_two.png">
+                <span >添加</span>
+            </button>
+            <div class="modal fade" id="renyuan">
+                <div class="modal-dialog modal-lg modal_position">
+                    <div class="modal-content" style="margin-top: -100px">
+                        <div class="modal-header">
+                            <h4 class="modal-title">添加</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="xztb" class="table">
+                                <!--新修改弹窗的样式-->
+                                <tbody>
+                                <tr>
+                                    <td class="tb_bg"><label><font style="font-size: 14px; color: red;">*</font>ID</label>
+                                    </td>
+                                    <td><input class="userName" id="userId" type="text" placeholder="请输入ID"></td>
+                                    <td class="tb_bg"><label><font style="font-size: 14px; color: red;">*</font>姓名</label>
+                                    </td>
+                                    <td><input class="jobNum" id="userName" type="text" placeholder="请输入姓名"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tb_bg"><label><font style="font-size: 14px; color: red;">*</font>性别</label>
+                                    </td>
+                                    <td><input class="phoneNum" id="userSex" type="text" placeholder="请输入性别"></td>
+                                    <td class="tb_bg"><label><font style="font-size: 14px; color: red;">*</font>出生日期</label></td>
+                                    <td><input type="text" id="userBirth" placeholder="例如 : 1999-01-01"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tb_bg"><label><font style="font-size: 14px; color: red;">*</font>绑定的手机号码</label>
+                                    </td>
+                                    <td><input class="phoneNum" id="userPhone" type="text" placeholder="请输入手机号"></td>
+                                    <td class="tb_bg"><label><font style="font-size: 14px; color: red;">*</font>民族</label></td>
+                                    <td><input type="text" id="userNation" placeholder="请输入民族"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tb_bg"><label><font style="font-size: 14px; color: red;">*</font>收件地址</label>
+                                    </td>
+                                    <td><input class="phoneNum" id="userAddress" type="text" placeholder="请输入收件地址"></td>
+                                    <td class="tb_bg"><label><font style="font-size: 14px; color: red;">*</font>收件的手机号码</label></td>
+                                    <td><input type="text" id="userPhoneNumber" placeholder="请输入收件手机号"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tb_bg"><label>邮箱</label>
+                                    </td>
+                                    <td><input class="phoneNum" id="userEmail" type="text" placeholder="例如 ：xxx@qq.com"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button id="add_btn" type="button" class="btn btn-secondary">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--表格列表-->
+        <table id="tb" class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>出生日期</th>
+                <th>绑定的手机号码</th>
+                <th>民族</th>
+                <th>收件地址</th>
+                <th>收件的手机号码</th>
+                <th>邮箱</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="show_tbody">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="../../js/mejs-user-manage.js"></script>
+</body>
+</html>

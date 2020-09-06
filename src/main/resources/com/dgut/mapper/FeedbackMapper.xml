@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgut.mapper.FeedbackMapper">
+<!--创建com.dgut.mapper包时，应输入包名 com/dgut/mapper-->
+
+    <resultMap id="ContactMap" type="com.dgut.domin.Contact">
+        <id column="contact_id" property="contactID" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="contact_name" property="contactName" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="contact_username" property="contactUserName" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="contact_email" property="contactEmail" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="contact_phone" property="contactPhone" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="contact_message" property="contactMessage" javaType="STRING" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="mesMap" type="com.dgut.domin.Message">
+        <id column="mes_id" property="mesID" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="mes_content" property="mesContent" javaType="STRING" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--select-->
+    <select id="getAllContact" resultMap="ContactMap">
+        select * from contact
+    </select>
+
+    <select id="getAllMessages" resultMap="mesMap">
+        select * from message
+    </select>
+
+    <!--insert-->
+<!--    <insert id="insertMessage" parameterType="com.dgut.domain.Message">
+        INSERT INTO message VALUES(#{mesID}, #{mesContent})
+    </insert>
+
+    <insert id="insertContact" parameterType="com.dgut.domain.Contact">
+        INSERT INTO contact VALUES(#{contactID}, #{contactName},#{contactUserName}
+        , #{contactEmail}, #{contactPhone}, #{contactMessage})
+    </insert>-->
+
+    <!--delete-->
+    <delete id="contactDelete" parameterType="String">
+        delete from contact where contact_id = #{contactID}
+    </delete>
+
+
+    <delete id="messageDelete" parameterType="String">
+        delete from message where mes_id = #{mesID}
+    </delete>
+</mapper>

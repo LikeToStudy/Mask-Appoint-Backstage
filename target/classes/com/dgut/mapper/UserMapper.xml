@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgut.mapper.UserMapper">
+    <resultMap id="UserMap" type="com.dgut.domin.User">
+        <id column="user_id" property="userID" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="username" property="username" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="password" property="password" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="user_sex" property="userSex" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="user_birth" property="userBirth" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="user_phone" property="userPhone" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="user_nation" property="userNation" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="user_address" property="userAddress" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="user_receipt_phone" property="userReceiptPhone" javaType="STRING" jdbcType="VARCHAR"/>
+        <result column="user_email" property="userEmail" javaType="STRING" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <parameterMap id="UserParamMap" type="com.dgut.domin.User">
+        <parameter property="username" resultMap="UserMap"/>
+        <parameter property="userSex" resultMap="UserMap"/>
+        <parameter property="userBirth" resultMap="UserMap"/>
+        <parameter property="userPhone" resultMap="UserMap"/>
+        <parameter property="userNation" resultMap="UserMap"/>
+        <parameter property="userAddress" resultMap="UserMap"/>
+        <parameter property="userReceiptPhone" resultMap="UserMap"/>
+        <parameter property="userEmail" resultMap="UserMap"/>
+    </parameterMap>
+
+    <!--select-->
+<!--    <select id="getUIDByUsername" resultType="String" parameterType="String">
+        select user_id from user where username=#{username}
+    </select>
+
+    <select id="getUIDByUserInfo" resultType="String" parameterType="String">
+        select user_id from user where username=#{param1} and password=#{param2}
+    </select>-->
+
+    <select id="getUsernameByUID" resultType="String" parameterType="String">
+        select username from user where user_id=#{userID}
+    </select>
+
+    <select id="getAllUser" resultMap="UserMap">
+        select * from user
+    </select>
+
+    <insert id="addUser" parameterType="com.dgut.domin.User">
+        INSERT INTO user VALUES(#{userID},#{username},#{password},#{userSex},
+        #{userBirth},#{userPhone},#{userNation},#{userAddress},
+        #{userReceiptPhone},#{userEmail})
+    </insert>
+
+    <update id="updateAllInfo" parameterMap="UserParamMap" >
+        update user set username=#{username}, user_sex=#{userSex}, user_birth=#{userBirth}
+        , user_phone=#{userPhone}, user_nation=#{userNation}, user_address=#{userAddress}
+        , user_receipt_phone=#{userReceiptPhone}
+        , user_email=#{userEmail} where user_id = #{userID}
+    </update>
+
+    <delete id="delUser" parameterType="String">
+        delete from user where user_id=#{userID}
+    </delete>
+</mapper>
